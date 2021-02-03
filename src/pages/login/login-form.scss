@@ -1,0 +1,16 @@
+.auth {
+  margin-top: auto;
+  margin-bottom: auto;
+
+  &__title {
+    text-align: center;
+
+    &--level1 {
+      margin-bottom: 3rem !important;
+    }
+  }
+}
+
+.login-form-button {
+  width: 100%;
+}
