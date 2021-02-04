@@ -1,7 +1,6 @@
-import IPost from "./interfases/i-post";
-import IStoreTable from "./interfases/i-store-table";
+import IStoreTablePosts from "./interfases/i-store-table-posts";
+import IStoreTableSubscribtions from "./interfases/i-store-table-subscribtions";
 import IStoreTableUsers from "./interfases/i-store-table-users";
-import ISubscribtion from "./interfases/i-subscribtion";
 
 export const users: IStoreTableUsers = {
   byId: {
@@ -21,12 +20,6 @@ export const users: IStoreTableUsers = {
   allIds: ["anna", "sasha", "zhenya"]
 };
 
-export interface IStoreTablePosts extends IStoreTable {
-  byId: {
-    [key: string]: IPost,
-  },
-};
-
 export const posts: IStoreTablePosts = {
   byId: {
     "post1": {
@@ -43,12 +36,6 @@ export const posts: IStoreTablePosts = {
     }
   },
   allIds: ["post1", "post2"]
-};
-
-export interface IStoreTableSubscribtions extends IStoreTable {
-  byId: {
-    [key: string]: ISubscribtion,
-  },
 };
 
 export const subscribtions: IStoreTableSubscribtions = {

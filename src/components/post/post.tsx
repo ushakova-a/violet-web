@@ -14,12 +14,12 @@ export default function Post({ author, body, liked, likedBy, onClose, onLike }: 
       title={<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Link href={author.path}>{author.name}</Link>
         <div>
-          <Button
+          {onClose && <Button
             type="link"
             size="small"
             onClick={onClose}
             icon={<CloseOutlined />}
-          />
+          />}
           <Button
             type="link"
             size="small"
@@ -31,7 +31,9 @@ export default function Post({ author, body, liked, likedBy, onClose, onLike }: 
       description={<div style={{ marginBottom: '1rem' }}>{body}</div>}
     />
     <div>Понравилось: {likedBy.map(
-      ({ id, name, path }: IUIUser) => <><Link key={id} href={path}>{name}</Link>{', '}</>
+      ({ id, name, path }: IUIUser) => <React.Fragment key={id}>
+        <Link href={path}>{name}</Link>{', '}
+      </React.Fragment>
     )}
     </div>
   </Card>

@@ -1,50 +1,54 @@
-import React, { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import IPost from '../../store/interfases/i-post';
-import Subscribtions from '../../ui/ui-classes/subscribtions';
 import Posts from '../../ui/ui-classes/posts';
 import TUserId from '../../store/types/t-user-id';
-import IUIPost from '../../components/post/i-ui-post';
-import IStoreTableUsers from '../../store/interfases/i-store-table-users';
+import IStore from '../../store/interfases/i-store';
+import selectors from '../../store/selectors';
+
+const {
+  LoggedInUserSelector,
+  UserSelector,
+  PostSelector,
+  SubscribtionSelector
+} = selectors;
 
 const connector = connect(
-  (state: {
-    users: IStoreTableUsers,
-    [key: string]: any
-  }) => ({
-    loggedInUser: state.loggedInUser,
-    users: state.users,
-    posts: state.posts,
-    subscribtions: state.subscribtions,
+  (state: IStore) => ({
+    loggedInUser: LoggedInUserSelector.getId(state),
+    postsById: PostSelector.getPostsById(state),
+    postsAllIds: PostSelector.getPostsIdArray(state),
+    usersById: UserSelector.getUsersById(state),
+    loggedInUserSubscribtions: SubscribtionSelector.getLoggedInUserSubscribtionIds(state),
   })
 );
 
 type TProps = ConnectedProps<typeof connector> & {
-  loggedInUser: TUserId,
   children: (tabProps: any) => any,
   [key: string]: any,
 };
 
-export default connector(FeedPostContainer)
+export default connector(function FeedPostContainer({ children, ...props }: TProps) {
 
-//TODO написать методы для выгрузки стейта
-function FeedPostContainer({ children, ...props }: TProps) {
-  const { loggedInUser, users, posts, subscribtions, } = props;
+  console.log(props.loggedInUser)
 
   const createTabs = () => {
-    const authorIds: { [key: string]: () => TUserId[] } = {
-      subscribtions: () => Subscribtions.getUserSubscribtionKeys(subscribtions, loggedInUser),
-      own: () => [loggedInUser]
+    const authorIds: { [key: string]: TUserId[] } = {
+      subscribtions: props.loggedInUserSubscribtions,
+      own: [props.loggedInUser]
     };
-    const filteringKeys = (showPosts: string[]) => showPosts.flatMap((type: string) => authorIds[type]());
-    const filterPosts = (showPosts: string[]) => Posts.filterPostsByAuthor(posts.byId, posts.allIds, filteringKeys(showPosts));
+    const filteringKeys = (showPosts: string[]) => showPosts.flatMap((type: string) => authorIds[type]);
+    const filterPosts = (showPosts: string[]) => Posts.filterPostsByAuthor(
+      props.postsById,
+      props.postsAllIds,
+      filteringKeys(showPosts)
+    );
 
     return [
       {
         id: 'all',
         title: 'Все посты',
-        postsById: posts.byId,
-        postsAllIds: posts.allIds
+        postsById: props.postsById,
+        postsAllIds: props.postsAllIds
       },
       {
         id: 'subscribtions',
@@ -62,27 +66,26 @@ function FeedPostContainer({ children, ...props }: TProps) {
       id,
       author: {
         id: author,
-        name: users.byId[author].name,
-        path: `/profile/${users.byId[author].name}`
+        name: props.usersById[author].name,
+        path: `/profile/${props.usersById[author].name}`
       },
       body,
       likedBy: likedBy.map((userId: TUserId) => ({
         id: userId,
-        name: users.byId[userId].name,
-        path: `/profile/${users.byId[author].name}`
+        name: props.usersById[userId].name,
+        path: `/profile/${props.usersById[author].name}`
       })),
-      liked: likedBy.includes(loggedInUser),
-      onLike: () => handleLike(post),
-      onDelete: handleDelete
+      liked: likedBy.includes(props.loggedInUser),
+      onLike: () => handleLike(post)
     }
   };
 
   const handleLike = (post: IPost) => {
     const { likedBy } = post;
-    const isLiked = likedBy.includes(loggedInUser);
+    const isLiked = likedBy.includes(props.loggedInUser);
     const newLikedBy = isLiked ?
-      likedBy.filter((key: string) => key !== loggedInUser) :
-      [...likedBy, loggedInUser];
+      likedBy.filter((key: string) => key !== props.loggedInUser) :
+      [...likedBy, props.loggedInUser];
 
     props.dispatch({
       type: 'UPDATE_POST',
@@ -90,11 +93,5 @@ function FeedPostContainer({ children, ...props }: TProps) {
     });
   };
 
-  const handleDelete = () => {
-  };
-
-  return children({
-    values: createTabs(),
-    getPost
-  })
-};
+  return children({ values: createTabs(), getPost })
+});

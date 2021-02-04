@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Row, Col } from 'antd';
-import './feed-page.scss';
 import FeedPostContainer from './feed-post-container';
 import { Tabs } from 'antd';
 import PostFlow from '../../components/post-flow';
+
+import './feed-page.scss';
 
 const { TabPane } = Tabs;
 

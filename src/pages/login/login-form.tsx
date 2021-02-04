@@ -1,49 +1,32 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Form, Input, Button, Checkbox } from 'antd';
-import './login-form.scss';
+import { connect, ConnectedProps } from 'react-redux';
+import { Form, Input, Button } from 'antd';
 import { useHistory } from "react-router-dom";
+import { ADD_LOGGED_IN_USER } from '../../store/keys';
+import IStore from '../../store/interfases/i-store';
+import UserSelector from '../../store/selectors/user-selector';
+import './login-form.scss';
 
-const layout = {
-  labelCol: { span: 24 },
-  wrapperCol: { span: 24 },
-};
-const tailLayout = {
-  wrapperCol: { span: 24 },
-};
+const connector = connect(
+  (state: IStore) => ({
+    usersById: UserSelector.getUsersById(state),
+  })
+);
 
-export default connect((state: any) => ({ users: state.users }))(function LoginForm(props: any) {
+type TProps = ConnectedProps<typeof connector> & { [key: string]: any };
 
-  let history = useHistory();
+export default connector(function LoginForm(props: TProps) {
 
-  console.log(props)
+  const history = useHistory();
 
   const onFinish = (values: any) => {
-    console.log('Success:', values);
 
-    console.log(props)
+    props.dispatch({
+      type: ADD_LOGGED_IN_USER,
+      patch: 'anna'
+    });
 
     history.push("/feed");
-
-    // const currentUser: any = Object.values(props.users.byId).filter((user: any) => user.name === values.username);
-
-
-    // props.dispatch({
-    //   type: 'SET_CURRENT_USER',
-    //   currentUser: {
-    //     id: currentUser ? currentUser.id : values.username
-    //   }
-    // });
-
-    // if (!currentUser) {
-    //   props.dispatch({
-    //     type: 'ADD_USER',
-    //     patch: {
-    //       id: values.username,
-    //       name: values.username
-    //     }
-    //   });
-    // }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -53,11 +36,11 @@ export default connect((state: any) => ({ users: state.users }))(function LoginF
   return (
     <Form
       layout="vertical"
-      {...layout}
+      labelCol={{ span: 24 }}
+      wrapperCol={{ span: 24 }}
       name="basic"
       initialValues={{
-        username: '',
-        remember: true
+        username: 'Anna'
       }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
@@ -69,15 +52,16 @@ export default connect((state: any) => ({ users: state.users }))(function LoginF
           max: 12,
           message: 'Oшибка валидации'
         }]}
+
       >
-        <Input placeholder="Введите имя" />
+        <Input placeholder="Введите имя" readOnly />
       </Form.Item>
 
-      <Form.Item {...tailLayout}>
+      <Form.Item wrapperCol={{ span: 24 }}>
         <Button type="primary" htmlType="submit" className="login-form-button">
           Далее
         </Button>
       </Form.Item>
-    </Form>
+    </Form >
   );
 });

@@ -23,14 +23,14 @@ function PostFlow({ postsById, postsAllIds, getPost }: TProps) {
             const post = getPost(postsById[postId]);
 
             return (<Col key={postId} span={24}>
-              <Post
-                key={postId}
-                author={post.author}
-                body={post.body}
-                liked={post.liked}
-                likedBy={post.likedBy}
-                onLike={post.onLike}
-                onClose={post.onDelete}
+              <Post {...post}
+              // key={postId}
+              // author={post.author}
+              // body={post.body}
+              // liked={post.liked}
+              // likedBy={post.likedBy}
+              // onLike={post.onLike}
+              // onClose={post.onDelete}
               />
             </Col>)
           }

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Client from './client';
-// import reportWebVitals from './reportWebVitals';
 import history from './history';
 import configureStore from './store/store';
 

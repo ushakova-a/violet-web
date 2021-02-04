@@ -6,5 +6,5 @@ export default interface IUIPost {
   liked: boolean,
   likedBy: IUIUser[],
   onLike: () => void,
-  onClose: () => void
+  onClose?: () => void
 };

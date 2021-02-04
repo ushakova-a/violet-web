@@ -8,16 +8,16 @@ type TLoggedInUserId = TUserId | null;
 
 type TAction = {
   type: string,
-  id: TLoggedInUserId
+  patch: TLoggedInUserId
 };
 
 const defautState: TLoggedInUserId = null;
 
 
-export default (state = defautState, { type, id }: TAction) => {
+export default (state = defautState, { type, patch }: TAction) => {
   switch (type) {
     case ADD_LOGGED_IN_USER:
-      return id;
+      return patch;
     case DELETE_LOGGED_IN_USER:
       return defautState;
     default:

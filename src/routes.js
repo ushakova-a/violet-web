@@ -3,16 +3,18 @@ import { Redirect } from 'react-router-dom';
 import LoginPage from './pages/login';
 import ProfilePage from './pages/profile';
 import FeedPage from './pages/feed';
-import FollowersPage from './pages/followers';
-import SubscribtionsPage from './pages/subscribtions';
 
 import NotFound from './pages/not-found';
 
-const Routes: { [key: string]: any } = [
+const Routes = [
   {
     path: '/',
     exact: true,
     component: LoginPage,
+  },
+  {
+    path: "/profile",
+    render: () => <Redirect to="/feed" />
   },
   {
     path: "/profile/:id",
@@ -31,14 +33,6 @@ const Routes: { [key: string]: any } = [
   {
     path: '/feed',
     component: FeedPage,
-  },
-  {
-    path: '/followers',
-    component: FollowersPage,
-  },
-  {
-    path: '/subscribtions',
-    component: SubscribtionsPage,
   },
   {
     path: '*',
