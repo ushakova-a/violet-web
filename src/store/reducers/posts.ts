@@ -19,18 +19,18 @@ function postsById(state = defaultPosts.byId, action: TAction) {
   }
 };
 
-function allPosts(state = defaultPosts.allIds, action: IAction) {
-  switch (action.type) {
-    case ADD_POST:
-      return ReducerUtils.addId(state, action)
-    case DELETE_POST:
-      return ReducerUtils.deleteId(state, action)
-    default:
-      return state
-  }
-}
+// function allPosts(state = defaultPosts.allIds, action: IAction) {
+//   switch (action.type) {
+//     case ADD_POST:
+//       return ReducerUtils.addId(state, action)
+//     case DELETE_POST:
+//       return ReducerUtils.deleteId(state, action)
+//     default:
+//       return state
+//   }
+// }
 
 export default combineReducers({
   byId: postsById,
-  allIds: allPosts
+  // allIds: allPosts
 });

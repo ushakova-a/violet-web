@@ -1,7 +1,9 @@
+import TTableKey from "../types/t-table-key";
+
 export default interface IAction {
   type: string,
   patch: {
-    id: string,
+    id: TTableKey,
     [key: string]: any
   }
 };

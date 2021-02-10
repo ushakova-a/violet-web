@@ -6,6 +6,7 @@ import selectedUser from './selected-user';
 import users from './users';
 import subscribtions from './subscribtions';
 import posts from './posts';
+import likes from './likes';
 
 export default (history: any) => combineReducers({
   router: connectRouter(history),
@@ -13,5 +14,6 @@ export default (history: any) => combineReducers({
   selectedUser,
   users,
   subscribtions,
-  posts
+  posts,
+  likes
 });

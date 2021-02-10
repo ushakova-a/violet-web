@@ -18,16 +18,16 @@ function usersById(state = defaultUsers.byId, action: TAction) {
   };
 };
 
-function allUsers(state = defaultUsers.allIds, action: IAction) {
-  switch (action.type) {
-    case ADD_USER:
-      return ReducerUtils.addId(state, action)
-    default:
-      return state
-  }
-}
+// function allUsers(state = defaultUsers.allIds, action: IAction) {
+//   switch (action.type) {
+//     case ADD_USER:
+//       return ReducerUtils.addId(state, action)
+//     default:
+//       return state
+//   }
+// }
 
 export default combineReducers({
   byId: usersById,
-  allIds: allUsers
+  // allIds: allUsers
 });

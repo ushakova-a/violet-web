@@ -15,18 +15,18 @@ function subscribtionsById(state = defaultSubscribtions.byId, action: IAction) {
   }
 };
 
-function allSubscribtions(state = defaultSubscribtions.allIds, action: IAction) {
-  switch (action.type) {
-    case ADD_SUBSCRIBTION:
-      return ReducerUtils.addId(state, action)
-    case DELETE_SUBSCRIBTION:
-      return ReducerUtils.deleteId(state, action)
-    default:
-      return state
-  }
-};
+// function allSubscribtions(state = defaultSubscribtions.allIds, action: IAction) {
+//   switch (action.type) {
+//     case ADD_SUBSCRIBTION:
+//       return ReducerUtils.addId(state, action)
+//     case DELETE_SUBSCRIBTION:
+//       return ReducerUtils.deleteId(state, action)
+//     default:
+//       return state
+//   }
+// };
 
 export default combineReducers({
   byId: subscribtionsById,
-  allIds: allSubscribtions
+  // allIds: allSubscribtions
 });

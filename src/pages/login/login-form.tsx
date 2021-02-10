@@ -9,7 +9,7 @@ import './login-form.scss';
 
 const connector = connect(
   (state: IStore) => ({
-    usersById: UserSelector.getUsersById(state),
+    usersById: UserSelector.getById(state),
   })
 );
 

@@ -1,5 +1,6 @@
 import IStoreTablePosts from "./interfases/i-store-table-posts";
 import IStoreTableSubscribtions from "./interfases/i-store-table-subscribtions";
+import IStoreTableLikes from "./interfases/i-store-table-likes";
 import IStoreTableUsers from "./interfases/i-store-table-users";
 
 export const users: IStoreTableUsers = {
@@ -17,7 +18,6 @@ export const users: IStoreTableUsers = {
       name: "Zhenya",
     }
   },
-  allIds: ["anna", "sasha", "zhenya"]
 };
 
 export const posts: IStoreTablePosts = {
@@ -26,16 +26,18 @@ export const posts: IStoreTablePosts = {
       id: "post1",
       author: "anna",
       body: "test test test",
-      likedBy: ["anna", "sasha"]
     },
     "post2": {
       id: "post2",
       author: "sasha",
-      body: "blabla bla blah",
-      likedBy: ["sasha"]
+      body: "blabla bla blah"
+    },
+    "post3": {
+      id: "post3",
+      author: "zhenya",
+      body: "blabla bla blah lorem ispum"
     }
   },
-  allIds: ["post1", "post2"]
 };
 
 export const subscribtions: IStoreTableSubscribtions = {
@@ -45,11 +47,11 @@ export const subscribtions: IStoreTableSubscribtions = {
       subscriber: "anna",
       subscribtion: "sasha"
     },
-    "subscribtion2": {
-      id: "subscribtion2",
-      subscriber: "anna",
-      subscribtion: "zhenya"
-    },
+    // "subscribtion2": {
+    //   id: "subscribtion2",
+    //   subscriber: "anna",
+    //   subscribtion: "zhenya"
+    // },
     "subscribtion3": {
       id: "subscribtion3",
       subscriber: "sasha",
@@ -60,6 +62,26 @@ export const subscribtions: IStoreTableSubscribtions = {
       subscriber: "zhenya",
       subscribtion: "sasha"
     },
-  },
-  allIds: ["subscribtion1", "subscribtion2", "subscribtion3", "subscribtion4"]
+  }
+};
+
+export const likes: IStoreTableLikes = {
+  byId: {
+    "like1": {
+      id: "like1",
+      user: "anna",
+      post: "post1"
+    },
+    "like2": {
+      id: "like2",
+      user: "sasha",
+      post: "post1",
+
+    },
+    "like3": {
+      id: "like3",
+      user: "sasha",
+      post: "post2"
+    }
+  }
 };

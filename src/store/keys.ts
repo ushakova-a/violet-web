@@ -14,6 +14,11 @@ export const GET_SUBSCRIBTIONS = 'GET_SUBSCRIBTIONS';
 export const ADD_SUBSCRIBTION = 'ADD_SUBSCRIBTION';
 export const DELETE_SUBSCRIBTION = 'DELETE_SUBSCRIBTION';
 
+
+export const GET_LIKES = 'GET_LIKES';
+export const ADD_LIKE = 'ADD_LIKE';
+export const DELETE_LIKE = 'DELETE_LIKE';
+
 export const GET_POSTS = 'GET_POSTS';
 export const ADD_POST = 'ADD_POST';
 export const UPDATE_POST = 'UPDATE_POST';

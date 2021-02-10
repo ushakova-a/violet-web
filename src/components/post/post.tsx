@@ -1,18 +1,18 @@
 import * as React from 'react';
-import { Typography, Card, Button } from 'antd';
+import { Card, Button } from 'antd';
 import { CloseOutlined, HeartOutlined, HeartFilled } from '@ant-design/icons';
 import IUIPost from './i-ui-post';
 import IUIUser from '../../store/interfases/i-ui-user';
+import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
-const { Link } = Typography;
 
 export default function Post({ author, body, liked, likedBy, onClose, onLike }: IUIPost) {
 
   return <Card>
     <Meta
       title={<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Link href={author.path}>{author.name}</Link>
+        <Link to={author.path}>{author.name}</Link>
         <div>
           {onClose && <Button
             type="link"
@@ -32,7 +32,7 @@ export default function Post({ author, body, liked, likedBy, onClose, onLike }: 
     />
     <div>Понравилось: {likedBy.map(
       ({ id, name, path }: IUIUser) => <React.Fragment key={id}>
-        <Link href={path}>{name}</Link>{', '}
+        <Link to={path}>{name}</Link>{', '}
       </React.Fragment>
     )}
     </div>

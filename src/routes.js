@@ -14,6 +14,7 @@ const Routes = [
   },
   {
     path: "/profile",
+    exact: true,
     render: () => <Redirect to="/feed" />
   },
   {

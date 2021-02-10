@@ -9,7 +9,6 @@ import './feed-page.scss';
 const { TabPane } = Tabs;
 
 export default function FeedPage() {
-
   return (
     <div className="feed">
       <div className="feed__block">
@@ -21,15 +20,15 @@ export default function FeedPage() {
             xs={{ span: 20 }}
           >
             <FeedPostContainer>
-              {({ values, getPost }: any) => {
+              {({ values }: any) => {
 
                 return (
                   <Tabs defaultActiveKey="all" type="card">
 
                     {values.map((value: any) => <TabPane key={value.id} tab={value.title}>
-                      <PostFlow postsById={value.postsById} postsAllIds={value.postsAllIds} getPost={getPost}/>
+                      <PostFlow postsAllIds={value.postsAllIds} />
                     </TabPane>)}
-                    
+
                   </Tabs>
                 )
               }}

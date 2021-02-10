@@ -1,16 +1,15 @@
 import React from 'react';
 import { Col, Row, Empty } from 'antd';
 import Post from '../../components/post';
-import IPost from '../../store/interfases/i-post';
+import PostContainer from '../../containers/post-container';
+import IUIPost from '../post/i-ui-post';
 
 type TProps = {
-  postsById: any,
   postsAllIds: string[],
-  getPost: (post: IPost) => any,
   [key: string]: any
 };
 
-function PostFlow({ postsById, postsAllIds, getPost }: TProps) {
+function PostFlow({ postsAllIds }: TProps) {
 
   return (<div>
     {!postsAllIds.length ?
@@ -19,21 +18,11 @@ function PostFlow({ postsById, postsAllIds, getPost }: TProps) {
       </div> :
       <Row gutter={[0, 16]}>
         {postsAllIds.map(
-          (postId: string) => {
-            const post = getPost(postsById[postId]);
-
-            return (<Col key={postId} span={24}>
-              <Post {...post}
-              // key={postId}
-              // author={post.author}
-              // body={post.body}
-              // liked={post.liked}
-              // likedBy={post.likedBy}
-              // onLike={post.onLike}
-              // onClose={post.onDelete}
-              />
-            </Col>)
-          }
+          (postId: string) => (<Col key={postId} span={24}>
+            <PostContainer id={postId}>
+              {({ post }: { post: IUIPost }) => <Post {...post} />}
+            </PostContainer>
+          </Col>)
         )}
       </Row>}
   </div>);
